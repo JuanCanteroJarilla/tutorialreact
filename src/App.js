@@ -20,11 +20,19 @@ class App extends Component{
     })
   }
 
+  removeTodo(index){
+    this.setState({
+      todos: this.state.todo.filter((e, i) => {
+        return i !== index
+      })
+    })
+  }
+
   render(){
     const todos = this.state.todo.map((todo, i) => { //Se recorren todos los elementos con un for, y se guarda dentro de una constante "todos"
       return(
         //Para cada uno de los elementos se creará un div que contendrá el atributo titulo de ese objeto
-         <div className="col-md-4">
+         <div className="col-md-4" key={i}>
             <div className="card mt-4"> 
               <div className="card-header">
                 <h3>{ todo.title }</h3>
@@ -38,6 +46,11 @@ class App extends Component{
               <div className="card-body">
                 <p>{ todo.description }</p>
                 <mark>{ todo.responsible }</mark>
+              </div>
+              <div className="card-footer">
+                <button className="btn btn-danger" onClick={this.removeTodo.bind(this,i)}>
+                  Delete
+                </button>
               </div>
             </div>
          </div>
